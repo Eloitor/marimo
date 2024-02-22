@@ -120,6 +120,7 @@ def compile_cell(code: str, cell_id: CellId_t) -> Cell:
 def cell_factory(
     f: CellFuncTypeBound,
     cell_id: CellId_t,
+    sage: bool=False,
 ) -> CellFunction[CellFuncTypeBound]:
     """Creates a cell from a function.
 
@@ -128,6 +129,10 @@ def cell_factory(
     signature, marimo will autofix them on save.
     """
     function_code = textwrap.dedent(inspect.getsource(f))
+    original_code = function_code
+    if sagemath_syntax:
+        from sage.repl import preparse
+        function_code = preparse(function_code)
 
     # tokenize to find the start of the function body, including
     # comments --- we have to use tokenize because the ast treats the first
@@ -205,7 +210,7 @@ def cell_factory(
     )
 
     cell_code: str
-    lines = function_code.split("\n")
+    lines = original_code.split("\n")
     if start_line == end_line:
         # remove leading indentation
         cell_code = textwrap.dedent(lines[start_line][start_col:return_offset])

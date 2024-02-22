@@ -261,11 +261,12 @@ class CellManager:
         func: Optional[CellFuncTypeBound],
         disabled: bool,
         hide_code: bool,
+        sage: bool,
     ) -> Union[
         Callable[[CellFuncType], CellFunction[CellFuncTypeBound]],
         CellFunction[CellFuncTypeBound],
     ]:
-        cell_config = CellConfig(disabled=disabled, hide_code=hide_code)
+        cell_config = CellConfig(disabled=disabled, hide_code=hide_code, sage=sage)
 
         if func is None:
             # If the decorator was used with parentheses, func will be None,
@@ -275,7 +276,7 @@ class CellManager:
                 func: CellFuncTypeBound,
             ) -> CellFunction[CellFuncTypeBound]:
                 cell_function = cell_factory(
-                    func, cell_id=self.create_cell_id()
+                    func, cell_id=self.create_cell_id(), sage=sage
                 )
                 cell_function.cell.configure(cell_config)
                 self._register_cell_function(cell_function)
