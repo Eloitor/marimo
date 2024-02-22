@@ -85,7 +85,7 @@ def validate_name(
             f"    marimo convert {name} > {prefix}.py\n\n"
             f"  then open with marimo edit {prefix}.py"
         )
-    elif path.suffix != ".py":
+    elif path.suffix != ".py" and path.suffix != ".sage":
         raise click.UsageError("Invalid NAME - %s is not a Python file" % name)
 
     if is_github_src(name, ext=".py"):
