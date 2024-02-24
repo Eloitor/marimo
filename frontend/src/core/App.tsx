@@ -225,7 +225,7 @@ export const App: React.FC<AppProps> = ({ userConfig, appConfig }) => {
       return;
     }
 
-    const pythonFilename = value.endsWith(".py") ? value : `${value}.py`;
+    const pythonFilename = value.endsWith(".py") or value.endsWith(".sage") ? value : `${value}.py`;
     handleFilenameChange(pythonFilename).then((name) => {
       if (name !== null) {
         saveNotebook(name, true);
