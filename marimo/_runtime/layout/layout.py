@@ -37,7 +37,7 @@ def save_layout_config(
     """
 
     # remove py extension
-    app_name_without_ext = app_name.replace(".py", "")
+    app_name_without_ext = app_name.replace(".py", "").replace(".sage", "")
     # relative file path
     filepath = f"layouts/{app_name_without_ext}.{config.type}.json"
     # full file path
